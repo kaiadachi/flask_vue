@@ -12,6 +12,11 @@
 		<p>cssSelecotr: {{formData.cssSelector}}</p>
 		<p>で正しいですか？</p>
 		<input type="submit" value="submit">
+
+		<h2>Results</h2>
+		<ul>
+		<li v-for="result in results">{{result}}</li>
+		</ul>
 	</form>
 </div>
 </template>
@@ -23,6 +28,7 @@ export default {
 	delimiters: ['[[', ']]'],
 	data() {
 		return {
+			results: [],
 			formData: {
 				'url': '',
 				'cssSelector': ''
@@ -32,9 +38,9 @@ export default {
 	methods: {
 		submit: function() {
 			axios.post('/api', this.formData)
-
 				.then(response => {
-
+					this.results = response.data
+					console.log(this.results)
 				})
 				.catch(error => {
 					console.log(error);
