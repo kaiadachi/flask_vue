@@ -20,7 +20,7 @@
 			</div>
 			<p>{{cssSelector}}</p>
 
-			<button v-on:click.prevent="addCss()" class="button is-primary is-small">追加</button>
+			<button v-on:click.prevent="addCss()" class="button is-primary is-outlined is-small">追加</button>
 		</div>
 
 		<span class="tag">
