@@ -5,18 +5,25 @@
 	<form v-on:submit.prevent="submit">
 
 		URL: <input type="text" v-model="formData.url"></br>
-		cssSelecotr: <input type="text" v-model="formData.cssSelector"></br>
+		cssSelecotr: <input type="text" v-model="cssSelector">
+		<button v-on:click="addCss()" class="btn btn-primary btn-sm">追加</button>
+		</br>
 
+		<span>cssSelecotr: {{cssSelector}}</span></br>
 
-		<p>URL: {{formData.url}}</p>
-		<p>cssSelecotr: {{formData.cssSelector}}</p>
+		</br></br><span>URL: {{formData.url}}</span>
+		</br><span>cssSelectors: {{formData.cssSelectors}}</span>
 		<p>で正しいですか？</p>
 		<input type="submit" value="submit">
 
 		<h2>Results</h2>
 		<ul>
-		<li v-for="result in results">{{result}}</li>
+			<li v-for="result in results">{{result}}</li>
 		</ul>
+
+		<button v-on:click="downloadCSV">
+			csvダウンロード
+		</button>
 	</form>
 </div>
 </template>
@@ -29,9 +36,10 @@ export default {
 	data() {
 		return {
 			results: [],
+			cssSelector: '',
 			formData: {
 				'url': '',
-				'cssSelector': ''
+				'cssSelectors': []
 			}
 		}
 	},
@@ -45,6 +53,26 @@ export default {
 				.catch(error => {
 					console.log(error);
 				})
+		},
+		downloadCSV() {
+			var csv = '\ufeff'
+			this.results.forEach(array => {
+				array.forEach(el => {
+					csv += el + '\n'
+				})
+			})
+			let blob = new Blob([csv], {
+				type: 'text/csv'
+			})
+			let link = document.createElement('a')
+			link.href = window.URL.createObjectURL(blob)
+			link.download = 'Result.csv'
+			link.click()
+		},
+		addCss: function() {
+			var newCss = this.cssSelector;
+			this.formData.cssSelectors.push(newCss);
+			this.cssSelector = '';
 		}
 	}
 
