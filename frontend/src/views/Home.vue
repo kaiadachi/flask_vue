@@ -30,20 +30,22 @@
 			<p>URL: <strong>{{formData.url}}</strong></p>
 			<p>CSSセレクタ: <strong>{{formData.cssSelectors}}</strong></p>
 		</div>
-		<div class="has-text-centered">
+
+		<div class="has-text-centered go-crawl">
 			<input type="submit" value="Go Crawl！" class="button is-success is-rounded is-medium">
 		</div>
 
-
-		<h2>Results</h2>
-		<ul>
-			<li v-for="result in results">{{result}}</li>
-		</ul>
+		<div class="box">
+			<h2>Results</h2>
+			<ul>
+				<li v-for="result in results">{{result}}</li>
+			</ul>
+		</div>
 
 		<button v-on:click.prevent="downloadCSV" class="button is-primary is-outlined">
 			<span class="icon">
-        <i class="fas fa-download"></i>
-      </span>
+				<i class="fas fa-download"></i>
+			</span>
 			csvダウンロード
 		</button>
 	</form>
@@ -101,6 +103,11 @@ export default {
 	}
 }
 </script>
-<style>
-
+<style lang="scss" scoped>
+.button .icon:first-child:last-child {
+    margin-right: 0;
+}
+.go-crawl {
+    margin-bottom: 1.5rem;
+}
 </style>
