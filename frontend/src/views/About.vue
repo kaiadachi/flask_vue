@@ -1,10 +1,12 @@
 <template>
 <div>
-	<p>Home page</p>
+	<router-link to="/">トップページへ</router-link>
+	<p>作者:  足立海</p>
+	<p>Backend: Flask</p>
+	<p>Frontend: Vue.js</p>
+	<p>ソースコード: <a href="https://github.com/kaiadachi/flask_vue">Github</a></p>
+	<p>自己紹介: <a href="https://kaisportfolio.work">Kaisportfolio</a></p>
 
-		<button v-on:click="downloadCSV">
-			csvダウンロード
-		</button>
 </div>
 </template>
 
@@ -21,11 +23,11 @@ export default {
 	methods: {
 		downloadCSV() {
 			var csv = '\ufeff'
-			this.items.forEach(el => {
-				el.forEach(e => {
-					csv += e + '\n'
+			this.items.forEach(array => {
+				array.forEach(el => {
+					csv += el + ','
 				})
-				
+				csv += '\n'
 			})
 			let blob = new Blob([csv], {
 				type: 'text/csv'
@@ -34,7 +36,7 @@ export default {
 			link.href = window.URL.createObjectURL(blob)
 			link.download = 'Result.csv'
 			link.click()
-		}
+		},
 	}
 }
 </script>

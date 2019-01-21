@@ -1,30 +1,53 @@
 <template>
-<div>
-	<p>Home page</p>
+<div class="content">
 
-	<form v-on:submit.prevent="submit">
 
-		URL: <input type="text" v-model="formData.url"></br>
-		cssSelecotr: <input type="text" v-model="cssSelector">
-		<button v-on:click="addCss()" class="btn btn-primary btn-sm">追加</button>
-		</br>
+	<form v-on:submit.prevent="submit" class="box">
 
-		<span>cssSelecotr: {{cssSelector}}</span></br>
+		<span class="tag">
+			入力情報
+		</span>
+		<div class="box">
+			<div class="field">
+				<div class="control">
+					<input type="text" v-model="formData.url" class="input is-primary" placeholder="URL">
+				</div>
+			</div>
+			<div class="field">
+				<div class="control">
+					<input type="text" v-model="cssSelector" class="input is-primary" placeholder="CSSセレクタ">
+				</div>
+			</div>
+			<p>{{cssSelector}}</p>
 
-		</br></br><span>URL: {{formData.url}}</span>
-		</br><span>cssSelectors: {{formData.cssSelectors}}</span>
-		<p>で正しいですか？</p>
-		<input type="submit" value="submit">
+			<button v-on:click.prevent="addCss()" class="button is-primary is-small">追加</button>
+		</div>
+
+		<span class="tag">
+			出力情報
+		</span>
+		<div class="box">
+			<p>URL: <strong>{{formData.url}}</strong></p>
+			<p>CSSセレクタ: <strong>{{formData.cssSelectors}}</strong></p>
+		</div>
+		<div class="has-text-centered">
+			<input type="submit" value="Go Crawl！" class="button is-success is-rounded is-medium">
+		</div>
+
 
 		<h2>Results</h2>
 		<ul>
 			<li v-for="result in results">{{result}}</li>
 		</ul>
 
-		<button v-on:click="downloadCSV">
+		<button v-on:click.prevent="downloadCSV" class="button is-primary is-outlined">
+			<span class="icon">
+        <i class="fas fa-download"></i>
+      </span>
 			csvダウンロード
 		</button>
 	</form>
+
 </div>
 </template>
 
@@ -58,8 +81,9 @@ export default {
 			var csv = '\ufeff'
 			this.results.forEach(array => {
 				array.forEach(el => {
-					csv += el + '\n'
+					csv += el + ','
 				})
+				csv += '\n'
 			})
 			let blob = new Blob([csv], {
 				type: 'text/csv'
@@ -75,6 +99,8 @@ export default {
 			this.cssSelector = '';
 		}
 	}
-
 }
 </script>
+<style>
+
+</style>

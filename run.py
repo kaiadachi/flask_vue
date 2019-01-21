@@ -12,18 +12,14 @@ def hello():
 		'targetUrl': request.json['url'],
 		'path': request.json['cssSelectors'],
 	}
-	print(requests['path'])
 	datas = main.getTarget(requests['targetUrl'], requests['path'])
-	print(datas)
+
+	print(requests)
 	for i in range(len(datas)):
 		for j in range(len(datas[i])):
 			datas[i][j] = datas[i][j].text
 
-	print(datas)
-
 	return jsonify(datas)
-
-
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
