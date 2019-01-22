@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def getTarget(url, css):
 	r = requests.get(url)
-	soup = BeautifulSoup(r.content, "html.parser")
+	soup = BeautifulSoup(r.content, "html5lib")
 	datas = []
 	for c in css:
 		data = soup.select(c)
@@ -12,5 +12,5 @@ def getTarget(url, css):
 
 
 if __name__ == '__main__':
-	datas = getTarget('https://news.yahoo.co.jp/', ['a', 'a'])
+	datas = getTarget('https://www.yahoo.co.jp/', ['a','a'])
 	print(datas)

@@ -1,42 +1,28 @@
 <template>
-<div>
-	<router-link to="/">トップページへ</router-link>
-	<p>作者:  足立海</p>
-	<p>Backend: Flask</p>
-	<p>Frontend: Vue.js</p>
-	<p>ソースコード: <a href="https://github.com/kaiadachi/flask_vue">Github</a></p>
-	<p>自己紹介: <a href="https://kaisportfolio.work">Kaisportfolio</a></p>
+<div class="container">
+	<span class="tag">
+		詳細情報
+	</span>
+	<div class="box">
+		<article class="media">
+			<figure class="media-left">
+				<p class="image is-128x128">
+					<img class="is-rounded" src="../assets/me.jpg" alt="image">
+				</p>
+			</figure>
 
+			<div class="media-content">
+				<div class="content">
+					<p>作者: 足立海</p>
+					<p>Backend: Flask</p>
+					<p>Frontend: Vue.js</p>
+					<p>CSSフレームワーク: <a href="https://bulma.io/">Bulma</a></p>
+					<p>ソースコード: <a href="https://github.com/kaiadachi/flask_vue">Github</a></p>
+					<p>自己紹介: <a href="https://kaisportfolio.work">Kaisportfolio</a></p>
+				</div>
+			</div>
+
+		</article>
+	</div>
 </div>
 </template>
-
-<script>
-import axios from 'axios'
-
-export default {
-	delimiters: ['[[', ']]'],
-	data() {
-		return {
-			items: [['test','test1','test2',],['jk','kjk','jkjk']]
-		}
-	},
-	methods: {
-		downloadCSV() {
-			var csv = '\ufeff'
-			this.items.forEach(array => {
-				array.forEach(el => {
-					csv += el + ','
-				})
-				csv += '\n'
-			})
-			let blob = new Blob([csv], {
-				type: 'text/csv'
-			})
-			let link = document.createElement('a')
-			link.href = window.URL.createObjectURL(blob)
-			link.download = 'Result.csv'
-			link.click()
-		},
-	}
-}
-</script>
