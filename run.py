@@ -7,7 +7,7 @@ app = Flask(__name__,static_folder = "./dist/static",template_folder = "./dist")
 
 
 @app.route("/api", methods=['POST'])
-def hello():
+def getRequests():
 	requests = {
 		'targetUrl': request.json['url'],
 		'path': request.json['cssSelectors'],
