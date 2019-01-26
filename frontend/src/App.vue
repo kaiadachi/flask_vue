@@ -1,20 +1,19 @@
 <template>
 <div id="app">
-	<header class="nav">
+	<header>
 		<nav class="navbar is-info" role="navigation" aria-label="main navigation">
 			<div class="navbar-brand">
 				<div class="hero-body">
-				<h1 class="title">{{title}}</h1>
+					<h1 class="title">{{title}}</h1>
 				</div>
 			</div>
-
-			<div id="navbarBasicExample" class="navbar-menu">
-				<div class="navbar-start">
-					<router-link to="/" class="navbar-item">Home</router-link>
-						<router-link to="howto" class="navbar-item">How to</router-link>
-					<router-link to="/about" class="navbar-item">About</router-link>
-				</div>
-			</div>
+		</nav>
+		<nav class="panel">
+			<p class="panel-tabs">
+				<router-link to="/">Home</router-link>
+				<router-link to="howto">How to</router-link>
+				<router-link to="/about">About</router-link>
+			</p>
 		</nav>
 	</header>
 
@@ -47,5 +46,8 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
+}
+.panel-tabs a{
+	font-size: 1.5em;
 }
 </style>

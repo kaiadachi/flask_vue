@@ -15,7 +15,7 @@ def getRequests():
 	}
 	datas = main.getTarget(requests['targetUrl'], requests['path'])
 
-	print(requests)
+	# print(requests)
 	for i in range(len(datas)):
 		for j in range(len(datas[i])):
 			datas[i][j] = datas[i][j].text
