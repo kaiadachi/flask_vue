@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="box">
 	<span class="tag">
 		詳細情報
 	</span>

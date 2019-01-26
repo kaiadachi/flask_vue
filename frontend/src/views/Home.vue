@@ -1,7 +1,6 @@
 <template>
 <div class="content">
 
-
 	<form v-on:submit.prevent="submit" class="box">
 
 		<span class="tag">
