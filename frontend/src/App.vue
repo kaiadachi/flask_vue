@@ -48,6 +48,6 @@ export default {
     color: #2c3e50;
 }
 .panel-tabs a{
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 </style>
