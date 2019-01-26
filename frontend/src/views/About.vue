@@ -21,8 +21,16 @@
 					<p>自己紹介: <a href="https://kaisportfolio.work">Kaisportfolio</a></p>
 				</div>
 			</div>
+			<div class="dami">
+				<img src="../assets/toilet.jpg" alt="image">
+			</div>
 
 		</article>
 	</div>
 </div>
 </template>
+<style lang="scss" scoped>
+.dami {
+		display: none;
+}
+</style>
