@@ -11,7 +11,8 @@
         </div>
         <div class="field">
           <div class="control">
-            <input type="text" v-model="formData.count" class="input is-primary" placeholder="件数">
+            <input type="text" v-model.number="formData.pages" class="input is-primary" placeholder="ページ数">
+            <p v-show="notNumber">数値を入力してください。最大取得可能ページは3ページまでです。</p>
           </div>
         </div>
         <div class="field">
@@ -26,13 +27,18 @@
       <span class="tag">出力情報</span>
       <div class="box">
         <p>KW: <strong>{{formData.kw}}</strong></p>
-        <p>件数: <strong>{{formData.count}}</strong></p>
+        <p>ページ数: <strong>{{formData.pages}}</strong></p>
         <p>CSSセレクタ: <strong>{{formData.cssSelectors}}</strong></p>
       </div>
 
       <div class="has-text-centered go-crawl">
-        <input type="submit" value="Go Crawl！" class="button is-success is-rounded is-medium">
+        <input v-bind:disabled="isProcessing()" type="submit" value="Go Crawl！"
+               class="button is-success is-rounded is-medium">
+        <p v-if="isProcessing()" class="is-text">
+          実行中です..
+        </p>
       </div>
+
 
       <div class="box">
         <h2>Results</h2>
@@ -63,17 +69,31 @@ export default {
       cssSelector: '',
       formData: {
         'kw': '',
-        'count': '',
+        'pages': null,
         'cssSelectors': []
+      },
+      processing: false
+    }
+  },
+  computed: {
+    notNumber() {
+      const value = Number(this.formData.pages);
+      if (Number.isNaN(value)) {
+        return true
       }
+      return value > 3;
     }
   },
   methods: {
     submit: function () {
+      this.startProcessing()
       axios.post('/api', this.formData).then(response => {
-        this.results = response.dataconsole.log(this.results)
+        console.log(response)
+        this.results = response.data
+        this.endProcessing()
       }).catch(error => {
         console.log(error)
+        this.endProcessing()
       })
     },
     downloadCSV() {
@@ -96,7 +116,16 @@ export default {
       var newCss = this.cssSelector
       this.formData.cssSelectors.push(newCss)
       this.cssSelector = ''
-    }
+    },
+    startProcessing: function () {
+      this.processing = true
+    },
+    endProcessing: function () {
+      this.processing = false
+    },
+    isProcessing() {
+      return this.processing
+    },
   }
 }
 </script>

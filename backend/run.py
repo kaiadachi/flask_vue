@@ -1,4 +1,3 @@
-# source venv/bin/activate
 # FLASK_APP=run.py FLASK_DEBUG=1 flask run
 from flask import Flask, render_template, jsonify, request
 import os
@@ -6,18 +5,21 @@ from src import main
 
 app = Flask(__name__, static_folder="../dist/static", template_folder="../dist")
 
+
 @app.route("/api", methods=['POST'])
 def getRequests():
     requests = {
-        'targetUrl': request.json['url'],
+        'kw': request.json['kw'],
+        'pages': request.json['pages'],
         'path': request.json['cssSelectors'],
     }
-    datas = main.getTarget(requests['targetUrl'], requests['path'])
+    print(requests)
+    datas = main.getTarget(requests['kw'], int(requests['pages']), requests['path'])
 
-    # print(requests)
-    for i in range(len(datas)):
-        for j in range(len(datas[i])):
-            datas[i][j] = datas[i][j].text
+    print(datas)
+    # for i in range(len(datas)):
+    #     for j in range(len(datas[i])):
+    #         datas[i][j] = datas[i][j].text
 
     return jsonify(datas)
 

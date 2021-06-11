@@ -7,7 +7,7 @@ from selenium import webdriver
 
 def getDriver():
     chromeOptions = webdriver.ChromeOptions()
-    chromeOptions.add_argument('--headless')
+    # chromeOptions.add_argument('--headless')
     chromeOptions.add_argument('--disable-gpu')
     chromeOptions.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=chromeOptions)
@@ -15,9 +15,11 @@ def getDriver():
     return driver
 
 
-def crawl(driver, css, results):
+def crawl(driver):
+    driver.get(url)
     title_tags = driver.find_elements_by_css_selector("h3")[:-1]
     a_tags = driver.find_elements_by_xpath("//a[h3]")
+    results = []
 
     links = []
     titles = []
@@ -27,34 +29,21 @@ def crawl(driver, css, results):
 
     for link, title in zip(links, titles):
         result = [title, link]
+        driver.get(link)
         try:
-            driver.get(link)
-            for cs in css:
-                try:
-                    result.append(driver.find_element_by_css_selector(cs).text)
-                except:
-                    result.append(None)
+            result.append(driver.find_element_by_css_selector("h1").text)
         except:
-            pass
+            result.append(None)
 
-        print(result)
         results.append(result)
-    return results
 
-
-def getTarget(kw, pages, css):
-    driver = getDriver()
-    results = []
-    for page in range(pages):
-        start = "&start=" + str(page * 10)
-        url = 'https://www.google.com/search?q=' + quote(kw) + start
-        driver.get(url)
-        results = crawl(driver, css, results)
-
+    print(results)
     driver.quit()
-    return results
 
 
 if __name__ == '__main__':
-    datas = getTarget('松 SEO', 2, ['h1'])
-    print(datas)
+    keyword = '松の育て方'
+    start = "&start=" + str(1 * 10)
+    url = 'https://www.google.com/search?q=' + quote(keyword) + start
+    driver = getDriver()
+    crawl(driver)
