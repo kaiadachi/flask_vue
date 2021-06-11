@@ -1,9 +1,8 @@
-# FLASK_APP=run.py FLASK_DEBUG=1 flask run
 from flask import Flask, render_template, jsonify, request
 import os
 from src import main
 
-app = Flask(__name__, static_folder="../dist/static", template_folder="../dist")
+app = Flask(__name__, static_folder="./dist/static", template_folder="./dist")
 
 
 @app.route("/api", methods=['POST'])
