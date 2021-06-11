@@ -85,9 +85,9 @@ export default {
     }
   },
   methods: {
-    submit: function () {
+    submit: async function () {
       this.startProcessing()
-      axios.post('/api', this.formData).then(response => {
+      await axios.post('/api', this.formData).then(response => {
         console.log(response)
         this.results = response.data
         this.endProcessing()
